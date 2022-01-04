@@ -1,4 +1,5 @@
 import React from 'react';
+import {RequestInterface} from "../interface";
 
 const Card = () => {
     return (
