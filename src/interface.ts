@@ -1,3 +1,6 @@
+//들어온 요청
+import React from "react";
+
 export interface RequestInterface {
     id: number;
     title: string;
@@ -9,3 +12,27 @@ export interface RequestInterface {
     "material": string[];
     "status": string;
 };
+
+//Card Components Prop
+export interface CardPropInterface {
+    request: RequestInterface;
+}
+
+
+//필터
+export interface FilterInterface {
+    method: string[];
+    material: string[];
+    status: string;
+}
+
+export interface FilterPropInterface {
+    filter: FilterInterface;
+    setFilter: React.Dispatch<React.SetStateAction<FilterInterface>>;
+}
+
+export interface FilterFormInterface extends  React.FormEvent<HTMLFormElement>{
+    material? : React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
+    method? : React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
+    status? : React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
+}

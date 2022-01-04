@@ -3,22 +3,35 @@ import "./static/css/dashboard.css";
 import Header from "./component/Header";
 import Filter from "./component/Filter";
 import Card from "./component/Card";
-import axios from "axios";
-import {RequestInterface} from "./interface";
-
+import {FilterInterface, RequestInterface} from "./interface";
+import axios, {AxiosResponse} from "axios";
 
 
 function App() {
+    const defaultFilter: FilterInterface = {
+        material: [],
+        method: [],
+        status: "",
+    };
+
     const [reqList, setReqList] = useState<RequestInterface[]>([]);
+    const [filter, setFilter] = useState<FilterInterface>(defaultFilter);
+    console.log("reqListLength", reqList.length);
     console.log("reqList", reqList);
 
     useEffect(() => {
-        (async() =>{
-            const response = await fetch('http://localhost:4000/requests')
-            const result = await response.json();
-            setReqList(result);
-        })();
-    }, []);
+
+        axios.get<RequestInterface[]>('http://localhost:4000/requests', {
+            params: {
+                method: filter.method.length > 0 ? filter.method : null,
+                material: filter.material.length > 0 ? filter.material : null,
+                status: filter.status !== "" ? filter.status : null,
+            }
+        }).then((response) => {
+            return setReqList(response.data);
+        });
+
+    }, [filter]);
 
     return (
         <>
@@ -29,47 +42,11 @@ function App() {
                         <h1>들어온 요청</h1>
                         <p>파트너님에게 딱 맞는 요청서를 찾아보세요.</p>
                     </div>
-                    <Filter/>
+                    <Filter filter={filter} setFilter={setFilter}/>
                     <div className="request-zone">
-                        {reqList.map((request)=>{
-                            return(
-                                <article key={request.id}>
-                                    <div className="request-main">
-                                        <div className="request-title">
-                                            <h2>{request.title}</h2>
-                                            <p className="company-name">{request.client}</p>
-                                            <p className="finished-date">{request.due}까지 납기</p>
-                                        </div>
-                                        {request.status === '상담중' ?  (<span className="request-processing">
-                                        상담중
-                                         </span>) : null }
-                                    </div>
-                                    <div className="request-detail">
-                                        <div>
-                                            <label>도면개수</label>
-                                            <span>{request.count}개</span>
-                                        </div>
-                                        <div>
-                                            <label>총 수량</label>
-                                            <span>{request.amount}개</span>
-                                        </div>
-                                        <div>
-                                            <label>가공방식</label>
-                                            <span>{request.method.join(",")}</span>
-                                        </div>
-                                        <div>
-                                            <label>재료</label>
-                                            <span>{request.material.join(",")}</span>
-                                        </div>
-                                    </div>
-                                    <div className="request-btn-area">
-                                        <button className="detail-btn">요청내역보기</button>
-                                        <button className="chat-btn">채팅하기</button>
-                                    </div>
-                                </article>
-                            );
-
-                        })}
+                        {reqList.length > 0 ? reqList.map((request) => <Card request={request} key={request.id}/>)
+                            : <h1>조건에 맞는 견적 요청이 없습니다.</h1>
+                        }
 
                     </div>
                 </main>

@@ -1,35 +1,35 @@
 import React from 'react';
-import {RequestInterface} from "../interface";
+import {CardPropInterface, RequestInterface} from "../interface";
 
-const Card = () => {
+const Card = ({request}:CardPropInterface):JSX.Element => {
     return (
-        <article>
+        <article key={request.id}>
             <div className="request-main">
                 <div className="request-title">
-                    <h2>자동차 시제품 제작</h2>
-                    <p className="company-name">A 고객사</p>
-                    <p className="finished-date">2020.12.14까지 납기</p>
+                    <h2>{request.title}</h2>
+                    <p className="company-name">{request.client}</p>
+                    <p className="finished-date">{request.due}까지 납기</p>
                 </div>
-                <span className="request-processing">
-                        상담중
-                    </span>
+                {request.status === '상담중' ?  (<span className="request-processing">
+                                        상담중
+                                         </span>) : null }
             </div>
             <div className="request-detail">
                 <div>
                     <label>도면개수</label>
-                    <span>2개</span>
+                    <span>{request.count}개</span>
                 </div>
                 <div>
                     <label>총 수량</label>
-                    <span>100개</span>
+                    <span>{request.amount}개</span>
                 </div>
                 <div>
                     <label>가공방식</label>
-                    <span>밀링, 선반</span>
+                    <span>{request.method.join(",")}</span>
                 </div>
                 <div>
                     <label>재료</label>
-                    <span>알루미늄</span>
+                    <span>{request.material.join(",")}</span>
                 </div>
             </div>
             <div className="request-btn-area">

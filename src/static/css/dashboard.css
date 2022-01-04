@@ -150,7 +150,7 @@ main {
 }
 
 .dropdown-content {
-    display: none;
+    display: block;
     position: absolute;
     z-index: 1; /*다른 요소들보다 앞에 배치*/
     font-weight: 500;
@@ -163,7 +163,7 @@ main {
     padding : 17px 12px 17px 12px;
 }
 
-.dropdown:hover .dropdown-content {
+.dropdown.active .dropdown-content {
     display: block;
 }
 
@@ -230,7 +230,7 @@ main {
 .request-zone {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: flex-start;
 }
 
 .request-zone article {
@@ -242,6 +242,9 @@ main {
     border-radius: 4px;
     padding: 24px 16px 24px 16px;
     margin-bottom: 16px;
+}
+.request-zone article:not(.request-zone article:nth-of-type(3n)){
+    margin-right : 16px;
 }
 
 .request-intro {
