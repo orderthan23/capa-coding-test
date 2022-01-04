@@ -3,7 +3,7 @@ import "./static/css/dashboard.css";
 import Header from "./component/Header";
 import Filter from "./component/Filter";
 import Card from "./component/Card";
-import {FilterInterface, RequestInterface} from "./interface";
+import {FilterInterface, FilterSearchInterface, RequestInterface} from "./interface";
 import axios, {AxiosResponse} from "axios";
 
 
@@ -20,17 +20,17 @@ function App() {
     console.log("reqList", reqList);
 
     useEffect(() => {
+        const param:FilterSearchInterface = {
+            method_like: filter.method.length > 0 ? filter.method : null,
+            material_like: filter.material.length > 0 ? filter.material : null,
+            status: filter.status !== "" ? filter.status : null,
+        }
 
         axios.get<RequestInterface[]>('http://localhost:4000/requests', {
-            params: {
-                method: filter.method.length > 0 ? filter.method : null,
-                material: filter.material.length > 0 ? filter.material : null,
-                status: filter.status !== "" ? filter.status : null,
-            }
+            params: param
         }).then((response) => {
             return setReqList(response.data);
         });
-
     }, [filter]);
 
     return (
@@ -45,7 +45,7 @@ function App() {
                     <Filter filter={filter} setFilter={setFilter}/>
                     <div className="request-zone">
                         {reqList.length > 0 ? reqList.map((request) => <Card request={request} key={request.id}/>)
-                            : <h1>조건에 맞는 견적 요청이 없습니다.</h1>
+                            : <div className="data-none"><h1>조건에 맞는 견적 요청이 없습니다.</h1></div>
                         }
 
                     </div>

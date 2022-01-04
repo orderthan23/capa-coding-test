@@ -1,32 +1,46 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import SideBar from "./SideBar";
 
 const Header = () => {
+    const [onSideBar, setOnSideBar] = useState(false);
+
+    useEffect(() => {
+        const navWrap = document.querySelector(".navWrap")
+        if (navWrap instanceof Element) {
+            if (onSideBar) {
+                navWrap.classList.add("active");
+            } else {
+                navWrap.classList.remove("active");
+            }
+        }
+    }, [onSideBar]);
+
     return (
-        <header>
-            <button className='toggleMenu'>
-                <span className='bar'></span>
-                <span className='bar'></span>
-                <span className='bar'></span>
-            </button>
-            <div className="navWrap">
-                <ul className='megaMenu'>
-                    <li className="logo-area">
-                        <img src="static/images/colorLogo.png"/>
-                    </li>
-                    <li className="mainTitle">
-                        <a href='#' className="mainNav">파트너정밀가공</a>
-                    </li>
-                    <li className="mainTitle">
-                        <a href='' className="mainNav">로그아웃</a>
-                    </li>
-                </ul>
-            </div>
-            <img src="static/images/logo.png"/>
-            <div className="link-zone">
-                <a className="header-link">A 가공 업체</a>
-                <a className="header-link">로그아웃</a>
-            </div>
-        </header>
+        <>
+            <SideBar onSideBar={onSideBar}/>
+            <header>
+                <div className="header-left">
+                    <button className='toggleMenu' onFocus={(e) => {
+                        e.stopPropagation();
+                        setOnSideBar(true);
+                    }}
+                            onBlur={(e) => {
+                                e.stopPropagation();
+                                setOnSideBar(false);
+                            }}
+                    >
+                        <span className='bar'></span>
+                        <span className='bar'></span>
+                        <span className='bar'></span>
+                    </button>
+                    <h1 className="header-logo"></h1>
+                </div>
+                <div className="link-zone">
+                    <a className="header-link"><span className="company-icon-white"></span>A 가공 업체</a>
+                    <a className="header-link">로그아웃</a>
+                </div>
+            </header>
+        </>
     );
 };
 

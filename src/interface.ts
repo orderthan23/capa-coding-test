@@ -36,3 +36,19 @@ export interface FilterFormInterface extends  React.FormEvent<HTMLFormElement>{
     method? : React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
     status? : React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
 }
+
+export interface  FilterSearchInterface{
+    method_like: string[] | null;
+    material_like: string[] | null;
+    status: string | null;
+}
+
+
+export interface SideBarPropInterface{
+    onSideBar : boolean;
+}
+
+export interface checkboxPropInterface{
+    value : string;
+}
+
