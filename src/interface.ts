@@ -1,7 +1,6 @@
-//들어온 요청
 import React from "react";
-import {MATERIAL_KR, MATERIALS, METHOD_KR, METHOD_NAME, METHODES} from "./constants";
 
+//들어온 요청
 export interface RequestInterface {
     id: number;
     title: string;

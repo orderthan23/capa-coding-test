@@ -1,5 +1,5 @@
 import React from 'react';
-import {CardPropInterface, RequestInterface} from "../interface";
+import {CardPropInterface} from "../interface";
 import CardStyles from "../style/card-style";
 import {COUNSELING, UNMARKED} from "../constants";
 
