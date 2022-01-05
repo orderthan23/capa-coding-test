@@ -1,5 +1,6 @@
 //들어온 요청
 import React from "react";
+import {MATERIAL_KR, MATERIALS, METHOD_KR, METHOD_NAME, METHODES} from "./constants";
 
 export interface RequestInterface {
     id: number;
@@ -31,24 +32,32 @@ export interface FilterPropInterface {
     setFilter: React.Dispatch<React.SetStateAction<FilterInterface>>;
 }
 
-export interface FilterFormInterface extends  React.FormEvent<HTMLFormElement>{
-    material? : React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
-    method? : React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
-    status? : React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
-}
-
-export interface  FilterSearchInterface{
+export interface FilterSearchInterface {
     method_like: string[] | null;
     material_like: string[] | null;
     status: string | null;
 }
 
 
-export interface SideBarPropInterface{
-    onSideBar : boolean;
+export interface SideBarPropInterface {
+    onSideBar: boolean;
 }
 
-export interface checkboxPropInterface{
-    value : string;
+export interface CheckboxPropInterface {
+    value: string;
+    name: string;
 }
 
+export interface DropDownBoxPropInterface {
+    options: DropDownBoxInterface;
+}
+
+export interface DropDownBoxInterface {
+    choiceRef: React.RefObject<HTMLDivElement>;
+    selector: boolean;
+    setSelector: React.Dispatch<React.SetStateAction<boolean>>;
+    optionKr: string;
+    list: string[];
+    optionType: string[];
+    name: string;
+}

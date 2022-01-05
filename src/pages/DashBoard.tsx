@@ -22,20 +22,15 @@ const DashBoard = () => {
             material_like: filter.material.length > 0 ? filter.material : null,
             status: filter.status !== "" ? filter.status : null,
         }
-
-        getRequestList(param).then((requestList) => {
-            return setReqList(requestList.data);
-        });
-
-
+        getRequestList(param).then((requestList) => setReqList(requestList.data))
     }, [filter]);
 
 
     const CardList = () => {
         return (
-            <RequestList className="request-zone">
+            <RequestList>
                 {reqList.length > 0 ? reqList.map((request) => <Card request={request} key={request.id}/>)
-                    : <div className="data-none"><h1>조건에 맞는 견적 요청이 없습니다.</h1></div>
+                    : <NoneData><h1>조건에 맞는 견적 요청이 없습니다.</h1></NoneData>
                 }
             </RequestList>
         );

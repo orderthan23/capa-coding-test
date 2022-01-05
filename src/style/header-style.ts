@@ -94,14 +94,6 @@ const Hamburger = styled.button`
   }
 `;
 
-
-
-
-
-
-
-
-
 const HeaderStyles = {
     MainHeader,
     HeaderLogo,
