@@ -89,7 +89,7 @@ const Filter = ({filter, setFilter}: FilterPropInterface) => {
                 if (checked) {
                     tempFilter.material.push(value);
                 } else {
-                    tempFilter.material.splice(tempFilter.method.indexOf(value), 1);
+                    tempFilter.material.splice(tempFilter.material.indexOf(value), 1);
                 }
                 break;
             case STATUS_NAME:
