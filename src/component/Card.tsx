@@ -1,20 +1,21 @@
 import React from 'react';
 import {CardPropInterface, RequestInterface} from "../interface";
+import CardStyles from "../style/card-style";
 
-const Card = ({request}:CardPropInterface):JSX.Element => {
+const {Detail, MainInfo, Progress, Title, RequestCard, ShowHistory, StartChat, ButtonArea} = CardStyles;
+
+const Card = ({request}: CardPropInterface): JSX.Element => {
     return (
-        <article key={request.id}>
-            <div className="request-main">
-                <div className="request-title">
+        <RequestCard>
+            <Title>
+                <MainInfo>
                     <h2>{request.title}</h2>
                     <p className="company-name">{request.client}</p>
                     <p className="finished-date">{request.due}까지 납기</p>
-                </div>
-                {request.status === '상담중' ?  (<span className="request-processing">
-                                        상담중
-                                         </span>) : null }
-            </div>
-            <div className="request-detail">
+                </MainInfo>
+                {request.status === '상담중' ? (<Progress>상담중</Progress>) : null}
+            </Title>
+            <Detail>
                 <div>
                     <label>도면개수</label>
                     <span>{request.count}개</span>
@@ -31,12 +32,12 @@ const Card = ({request}:CardPropInterface):JSX.Element => {
                     <label>재료</label>
                     <span>{request.material.join(",")}</span>
                 </div>
-            </div>
-            <div className="request-btn-area">
-                <button className="detail-btn">요청내역보기</button>
-                <button className="chat-btn">채팅하기</button>
-            </div>
-        </article>
+            </Detail>
+            <ButtonArea>
+                <ShowHistory>요청내역보기</ShowHistory>
+                <StartChat>채팅하기</StartChat>
+            </ButtonArea>
+        </RequestCard>
     );
 };
 

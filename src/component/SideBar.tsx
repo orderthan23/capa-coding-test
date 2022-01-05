@@ -1,21 +1,25 @@
 import React from 'react';
 import {SideBarPropInterface} from "../interface";
+import SideBarStyles from "../style/sideBar-style";
 
-const SideBar = ({onSideBar}:SideBarPropInterface) => {
+
+const {CompanyIcon, MainTitle, LogoArea, NavWrapper, MegaMenu} = SideBarStyles
+
+const SideBar = ({onSideBar}: SideBarPropInterface) => {
     return (
-        <div className={`navWrap ${onSideBar ? "active" : ""}`}>
-            <ul className='megaMenu'>
-                <li className="logo-area">
+        <NavWrapper className={`${onSideBar ? "active" : ""}`}>
+            <MegaMenu className='mega-menu'>
+                <LogoArea>
                     <h1></h1>
-                </li>
-                <li className="mainTitle">
-                    <a href='#' className="mainNav"><span className="company-icon"></span>파트너정밀가공</a>
-                </li>
-                <li className="mainTitle">
-                    <a href='' className="mainNav">로그아웃</a>
-                </li>
-            </ul>
-        </div>
+                </LogoArea>
+                <MainTitle>
+                    <a href='#'><CompanyIcon/>파트너정밀가공</a>
+                </MainTitle>
+                <MainTitle>
+                    <a href='#'>로그아웃</a>
+                </MainTitle>
+            </MegaMenu>
+        </NavWrapper>
     );
 };
 

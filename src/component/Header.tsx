@@ -1,5 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import SideBar from "./SideBar";
+import HeaderStyles from "../style/header-style";
+
+const {CompanyWhiteIcon, HeaderLink, HeaderLogo, MainHeader, LinkZone, HeaderLeft, Hamburger} = HeaderStyles;
+
 
 const Header = () => {
     const [onSideBar, setOnSideBar] = useState(false);
@@ -15,31 +19,31 @@ const Header = () => {
         }
     }, [onSideBar]);
 
+    const openSideBar = (e: React.FocusEvent<HTMLButtonElement, Element>, isOpen:boolean) => {
+        e.stopPropagation();
+        setOnSideBar(isOpen);
+    }
+
     return (
         <>
             <SideBar onSideBar={onSideBar}/>
-            <header>
-                <div className="header-left">
-                    <button className='toggleMenu' onFocus={(e) => {
-                        e.stopPropagation();
-                        setOnSideBar(true);
-                    }}
-                            onBlur={(e) => {
-                                e.stopPropagation();
-                                setOnSideBar(false);
-                            }}
+            <MainHeader>
+                <HeaderLeft>
+                    <Hamburger
+                        onFocus={e => openSideBar(e, true)}
+                        onBlur={e => openSideBar(e, false)}
                     >
                         <span className='bar'></span>
                         <span className='bar'></span>
                         <span className='bar'></span>
-                    </button>
-                    <h1 className="header-logo"></h1>
-                </div>
-                <div className="link-zone">
-                    <a className="header-link"><span className="company-icon-white"></span>A 가공 업체</a>
-                    <a className="header-link">로그아웃</a>
-                </div>
-            </header>
+                    </Hamburger>
+                    <HeaderLogo/>
+                </HeaderLeft>
+                <LinkZone>
+                    <HeaderLink><CompanyWhiteIcon/>A 가공 업체</HeaderLink>
+                    <HeaderLink>로그아웃</HeaderLink>
+                </LinkZone>
+            </MainHeader>
         </>
     );
 };

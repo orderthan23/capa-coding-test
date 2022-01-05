@@ -1,6 +1,20 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {checkboxPropInterface, FilterInterface, FilterPropInterface} from "../interface";
-import {defaultFilter} from "../constants";
+import {checkboxPropInterface, FilterPropInterface} from "../interface";
+import FilterStyles from "../style/filter-style";
+
+const {
+    DContent,
+    DropIcon,
+    DropDown,
+    FilterWrapper,
+    StatusFilter,
+    ResetIcon,
+    Reset,
+    Switch,
+    SwitchBtn,
+    DButton
+} = FilterStyles
+
 
 const Filter = ({filter, setFilter}: FilterPropInterface) => {
 
@@ -71,9 +85,9 @@ const Filter = ({filter, setFilter}: FilterPropInterface) => {
         e.preventDefault();
         console.log("filter", filter);
         setFilter({
-            method:[],
-            material : [],
-            status : "",
+            method: [],
+            material: [],
+            status: "",
         });
     }
 
@@ -92,46 +106,43 @@ const Filter = ({filter, setFilter}: FilterPropInterface) => {
     }
 
     return (
-        <div className="filter-zone">
+        <FilterWrapper>
             <div>
-                <div className="dropdown" ref={methodRef} onClick={() => {
-                    setMethodSelector(true)
-                }}>
-                    <button className={`dropbtn ${methodSelector && "selected"}`}>
+                <DropDown ref={methodRef} onClick={() => setMethodSelector(true)}>
+                    <DButton className={`${methodSelector && "selected"}`}>
                         <span>가공방식{filter.method.length > 0 && `(${filter.method.length})`}</span>
-                        <span className="dropbtn_icon"></span>
-                    </button>
-                    <div className={`dropdown-content ${methodSelector && "selected"}`}>
+                        <DropIcon className="drop-icon"/>
+                    </DButton>
+                    <DContent className={`${methodSelector && "selected"}`}>
                         {methods.map((method, index) => <Method value={method} key={index}/>)}
-                    </div>
-                </div>
-                <div className="dropdown" ref={materialRef} onClick={() => {
-                    setMaterialSelector(true)
-                }}>
-                    <button className={`dropbtn ${materialSelector && "selected"}`}>
+                    </DContent>
+                </DropDown>
+
+                <DropDown ref={materialRef} onClick={() => setMaterialSelector(true)}>
+                    <DButton className={`${materialSelector && "selected"}`}>
                         <span>재료{filter.material.length > 0 && `(${filter.material.length})`}</span>
-                        <span className="dropbtn_icon"></span>
-                    </button>
-                    <div className={`dropdown-content ${materialSelector && "selected"}`}>
+                        <DropIcon className="drop-icon"/>
+                    </DButton>
+                    <DContent className={`${materialSelector && "selected"}`}>
                         {materials.map((material, index) => <Material value={material} key={index}/>)}
-                    </div>
-                </div>
+                    </DContent>
+                </DropDown>
                 {(filter.method.length > 0 || filter.material.length > 0) &&
-                <a className="reset" href="#" onClick={(e)=>{ resetFilter(e) }}>
-                    <span className="reset-icon"></span>필터링 리셋
-                </a>
+                <Reset href="#" onClick={(e) => resetFilter(e)}>
+                    <ResetIcon/>필터링 리셋
+                </Reset>
                 }
 
             </div>
-            <div className="only-processing">
-                <label className="switch-button">
+            <StatusFilter>
+                <SwitchBtn>
                     <input type="checkbox" value="상담중" name="status" defaultChecked={filter.status === "상담중"}
                            onChange={onChangeStatus}/>
-                    <span className="switch"></span>
-                </label>
+                    <Switch className="switch"></Switch>
+                </SwitchBtn>
                 <span>상담 중인 요청만 보기</span>
-            </div>
-        </div>
+            </StatusFilter>
+        </FilterWrapper>
     );
 };
 

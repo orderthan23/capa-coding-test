@@ -1,10 +1,15 @@
 import React, {useEffect, useState} from 'react';
-import "./static/css/dashboard.css";
 import DashBoard from "./pages/DashBoard";
+import {GlobalStyle} from "./style/global-style";
 
 
 function App() {
-    return <DashBoard/>
+    return (
+        <>
+            <GlobalStyle/>
+            <DashBoard/>
+        </>
+    );
 }
 
 export default App;

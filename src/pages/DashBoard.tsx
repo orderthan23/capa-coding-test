@@ -5,6 +5,11 @@ import Filter from "../component/Filter";
 import Card from "../component/Card";
 import {getRequestList} from "../api";
 import {defaultFilter} from "../constants";
+import DashboardStyles from "../style/dashboard.style";
+
+
+const {Intro, RequestList, Wrapper, ContentArea, NoneData} = DashboardStyles
+
 
 const DashBoard = () => {
 
@@ -28,33 +33,33 @@ const DashBoard = () => {
 
     const CardList = () => {
         return (
-            <div className="request-zone">
+            <RequestList className="request-zone">
                 {reqList.length > 0 ? reqList.map((request) => <Card request={request} key={request.id}/>)
                     : <div className="data-none"><h1>조건에 맞는 견적 요청이 없습니다.</h1></div>
                 }
-            </div>
+            </RequestList>
         );
     }
 
     const DashBoardTitle = () => {
         return (
-            <div className="request-intro">
+            <Intro>
                 <h1>들어온 요청</h1>
                 <p>파트너님에게 딱 맞는 요청서를 찾아보세요.</p>
-            </div>
+            </Intro>
         );
     }
 
     return (
         <>
             <Header/>
-            <section>
-                <main>
+            <Wrapper>
+                <ContentArea>
                     <DashBoardTitle/>
                     <Filter filter={filter} setFilter={setFilter}/>
                     <CardList/>
-                </main>
-            </section>
+                </ContentArea>
+            </Wrapper>
         </>
 
     );
